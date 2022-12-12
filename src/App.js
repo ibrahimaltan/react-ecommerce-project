@@ -3,7 +3,14 @@ import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/i
 import { Layout, Menu } from 'antd';
 import { Route , Routes , useNavigate } from 'react-router-dom'
 import HomePage from "./pages/HomePage";
+import Search from "./pages/Search";
+import Favorites from "./pages/Favorites";
 
+const MenuItem = [
+    {name : "Home" , key : "/" , icon : UploadOutlined},
+    {name : "Search" , key : "/Search" , icon : UserOutlined},
+    {name : "Favorites" , key : "/Favorites" , icon : VideoCameraOutlined}
+    ];
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -22,7 +29,7 @@ function App () {
             console.log(collapsed, type);
           }}
       >
-        <div className="logo"/>
+          <div className="logo" style={{fontSize:"30px" , textAlign:"center" , color:"#fff"}}>logo </div>
         <Menu
             onClick={({key})=> {
                   navigate(key);
@@ -30,11 +37,10 @@ function App () {
             theme="dark"
             mode="inline"
             defaultSelectedKeys={['1']}
-            items={[UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
-                (icon, index) => ({
-                  key: String(index + 1),
-                  icon: React.createElement(icon),
-                  label: `nav ${index + 1}`,
+            items={MenuItem.map(
+                ( item) => ({
+                  key: String(item.key),
+                  label: item.name,
                 }),
             )}
         />
@@ -48,8 +54,9 @@ function App () {
 
           <Content>
               <Routes>
-                  <Route path="/1" element={<HomePage/>}></Route>
-                  <Route path="/2" element={<div>test</div>}></Route>
+                  <Route path="/" element={<HomePage/>}></Route>
+                  <Route path="/Search" element={<Search/>}></Route>
+                  <Route path="/Favorites" element={<Favorites/>}></Route>
               </Routes>
           </Content>
         <Footer
